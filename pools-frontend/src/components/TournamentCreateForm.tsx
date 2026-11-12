@@ -1,7 +1,7 @@
 // Place at src/components/TournamentCreateForm.tsx
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { apiError, createTournament } from "../api/client";
+import { createTournament } from "../api/client";
 import type { Tournament } from "../pages/Fantasy";
 
 
