@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import AppLayout from "../components/AppLayout";
-import ScoringRules from "../components/ScoringRules";
-import { apiError, getFantasyTeam } from "../api/fantasy";
-import type { FantasyTeam } from "../api/fantasy";
+import ScoringRules from "./ScoringRules";
+import { apiError, getFantasyTeam } from "./Fantasy";
+import type { FantasyTeam } from "./Fantasy";
 import "./fantasy.css";
 
 export default function TeamDetail() {

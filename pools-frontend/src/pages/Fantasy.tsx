@@ -1,5 +1,5 @@
 // Place at src/api/fantasy.ts
-import api from "./client"; // TODO: point this at your existing axios instance
+import api from "../api/client"; // TODO: point this at your existing axios instance
 
 export type Phase = "open" | "locked" | "complete";
 

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AppLayout from "../components/AppLayout";
-import ScoringRules from "../components/ScoringRules";
+import ScoringRules from "./ScoringRules";
 import {
   apiError,
   createTeam,
@@ -11,8 +11,8 @@ import {
   getFantasyTeam,
   getTournament,
   updateTeam,
-} from "../api/fantasy";
-import type { FantasyPlayer, Tournament } from "../api/fantasy";
+} from "./Fantasy";
+import type { FantasyPlayer, Tournament } from "./Fantasy";
 import "./fantasy.css";
 
 type Tier = "all" | "1" | "2" | "3";
