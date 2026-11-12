@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import AppLayout from "../components/AppLayout";
-import ScoringRules from "../components/ScoringRules";
+import ScoringRules from "./ScoringRules";
 // TODO: adjust to match how your app exposes the logged-in user
 import { useAuth } from "../context/AuthContext";
 import {

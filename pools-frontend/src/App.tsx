@@ -7,10 +7,11 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import PoolDetail from "./pages/PoolDetail";
 import FantasyHome from "./pages/FantasyHome";
-import FantasyTournament from "./pages/FantasyTournament";
+
 import CreateTournament from "./pages/CreateTournament";
 import TeamBuilder from "./pages/TeamBuilder";
 import TeamDetail from "./pages/TeamDetail";
+import FantasyTournament from "./pages/Fantasytournament";
 
 function App() {
   return (
