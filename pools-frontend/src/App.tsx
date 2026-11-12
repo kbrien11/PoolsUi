@@ -6,6 +6,11 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import PoolDetail from "./pages/PoolDetail";
+import FantasyHome from "./pages/FantasyHome";
+import FantasyTournament from "./pages/FantasyTournament";
+import CreateTournament from "./pages/CreateTournament";
+import TeamBuilder from "./pages/TeamBuilder";
+import TeamDetail from "./pages/TeamDetail";
 
 function App() {
   return (
@@ -21,6 +26,14 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/pools/:poolId" element={<PoolDetail />} />
+
+            {/* March Madness Fantasy */}
+            <Route path="/fantasy" element={<FantasyHome />} />
+            <Route path="/fantasy/new" element={<CreateTournament />} />
+            <Route path="/fantasy/:tournamentId" element={<FantasyTournament />} />
+            <Route path="/fantasy/:tournamentId/teams/new" element={<TeamBuilder />} />
+            <Route path="/fantasy/:tournamentId/teams/:teamId/edit" element={<TeamBuilder />} />
+            <Route path="/fantasy/teams/:teamId" element={<TeamDetail />} />
           </Route>
 
           {/* Anything else goes back to the landing page */}
