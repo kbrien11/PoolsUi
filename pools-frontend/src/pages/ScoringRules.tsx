@@ -1,5 +1,5 @@
 // Place at src/components/ScoringRules.tsx
-import "../pages/fantasy.css";
+
 
 export default function ScoringRules() {
   return (
