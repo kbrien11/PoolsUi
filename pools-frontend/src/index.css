@@ -362,3 +362,768 @@
     }
   }
    
+
+  /* Place at src/pages/fantasy.css. Reuses your existing panel, eyebrow, detail-*, primary-button and alert classes. */
+
+/* LAYOUT */
+.fb-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 24px;
+    align-items: start;
+  }
+  
+  .fb-main h2 {
+    margin: 4px 0 16px;
+  }
+  
+  @media (max-width: 960px) {
+    .fb-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* PILLS + MULTIPLIER BADGES */
+  .fb-pill {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: #e6eaf4;
+    color: #5b6482;
+  }
+  
+  .fb-pill.open {
+    background: #e3f6ec;
+    color: #1b8a52;
+  }
+  
+  .fb-pill.locked {
+    background: #fff1dc;
+    color: #b56a00;
+  }
+  
+  .fb-pill.complete {
+    background: #e6eaf4;
+    color: #5b6482;
+  }
+  
+  .fb-mult {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  
+  .fb-mult.m1 {
+    background: #e6eaf4;
+    color: #5b6482;
+  }
+  
+  .fb-mult.m2 {
+    background: #e9e6fc;
+    color: #5b4de0;
+  }
+  
+  .fb-mult.m3 {
+    background: #5b4de0;
+    color: #fff;
+  }
+  
+  /* TOURNAMENT / TEAM CARDS */
+  .fb-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .fb-card {
+    display: block;
+    padding: 18px 20px;
+    border: 1px solid #e6eaf4;
+    border-radius: 14px;
+    background: #fff;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  
+  a.fb-card:hover {
+    border-color: #5b4de0;
+    transform: translateY(-1px);
+  }
+  
+  .fb-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  
+  .fb-card-top strong {
+    font-size: 17px;
+  }
+  
+  .fb-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #5b6482;
+  }
+  
+  .fb-total {
+    font-weight: 800;
+    color: #5b4de0;
+  }
+  
+  .fb-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 12px 0;
+  }
+  
+  .fb-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: #f6f8fc;
+    border: 1px solid #e6eaf4;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .fb-chip em {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 11px;
+  }
+  
+  .fb-chip em.m1 {
+    color: #5b6482;
+  }
+  
+  .fb-chip em.m2,
+  .fb-chip em.m3 {
+    color: #5b4de0;
+  }
+  
+  .fb-card-actions {
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  
+  .fb-card-actions a,
+  .fb-card-actions button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #5b4de0;
+    cursor: pointer;
+    font: inherit;
+    text-decoration: none;
+  }
+  
+  .fb-card-actions button:last-child {
+    color: #c0392b;
+  }
+  
+  .fb-link-button {
+    display: inline-block;
+    margin-bottom: 16px;
+    text-decoration: none;
+  }
+  
+  /* TABS */
+  .fb-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e6eaf4;
+  }
+  
+  .fb-tabs button {
+    background: none;
+    border: none;
+    padding: 10px 14px;
+    font: inherit;
+    font-weight: 700;
+    color: #8b93b0;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+  
+  .fb-tabs button.active {
+    color: #131b33;
+    border-bottom-color: #5b4de0;
+  }
+  
+  /* TABLES */
+  .fb-table-wrap {
+    overflow-x: auto;
+  }
+  
+  .fb-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  
+  .fb-table th {
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8b93b0;
+    padding: 10px 12px;
+    border-bottom: 1px solid #e6eaf4;
+  }
+  
+  .fb-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f0f2f8;
+  }
+  
+  .fb-table .num {
+    text-align: right;
+  }
+  
+  .fb-table tr.mine td {
+    background: #f3f1fe;
+  }
+  
+  .fb-table a {
+    color: #5b4de0;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  
+  .fb-sub {
+    display: block;
+    color: #8b93b0;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+  
+  .fb-small-strong {
+    font-size: 18px !important;
+  }
+  
+  /* TEAM BUILDER: FILTERS + PLAYER LIST */
+  .fb-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .fb-filters input,
+  .fb-name-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 14px;
+    border: 1px solid #d3d9ea;
+    border-radius: 10px;
+    font: inherit;
+    background: #fff;
+  }
+  
+  .fb-tier-buttons,
+  .fb-status-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .fb-tier-buttons button,
+  .fb-status-buttons button {
+    padding: 8px 14px;
+    border: 1px solid #d3d9ea;
+    background: #fff;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    color: #5b6482;
+    cursor: pointer;
+  }
+  
+  .fb-tier-buttons button.active,
+  .fb-status-buttons button.active {
+    background: #5b4de0;
+    border-color: #5b4de0;
+    color: #fff;
+  }
+  
+  .fb-player-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 640px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  
+  .fb-player {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid #e6eaf4;
+    border-radius: 12px;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+  }
+  
+  .fb-player:hover:not(:disabled) {
+    border-color: #5b4de0;
+  }
+  
+  .fb-player.picked {
+    background: #f3f1fe;
+    border-color: #5b4de0;
+  }
+  
+  .fb-player:disabled:not(.picked) {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  
+  .fb-seed {
+    flex: 0 0 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: #f6f8fc;
+    font-size: 13px;
+    font-weight: 800;
+    color: #5b6482;
+  }
+  
+  .fb-player-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .fb-player-main small {
+    color: #8b93b0;
+    font-size: 12px;
+  }
+  
+  .fb-check {
+    width: 24px;
+    text-align: center;
+    font-weight: 800;
+    color: #5b4de0;
+  }
+  
+  /* TEAM BUILDER: ROSTER */
+  .fb-name-input {
+    margin: 12px 0;
+  }
+  
+  .fb-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .fb-slot {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border: 1px dashed #d3d9ea;
+    border-radius: 10px;
+    min-height: 24px;
+  }
+  
+  .fb-slot.filled {
+    border-style: solid;
+    border-color: #e6eaf4;
+    background: #fff;
+  }
+  
+  .fb-slot-name {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  
+  .fb-slot-name small {
+    color: #8b93b0;
+    font-weight: 500;
+    font-size: 11px;
+  }
+  
+  .fb-slot-empty {
+    font-size: 12px;
+    color: #a4abc4;
+  }
+  
+  .fb-slot button {
+    background: none;
+    border: none;
+    color: #8b93b0;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .fb-mix {
+    margin: 14px 0;
+    font-size: 12px;
+    color: #5b6482;
+    text-align: center;
+  }
+  
+  .fb-save {
+    width: 100%;
+  }
+  
+  /* SCORING RULES */
+  .fb-rule {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f2f8;
+  }
+  
+  .fb-rule div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .fb-rule small {
+    color: #8b93b0;
+    font-size: 12px;
+  }
+  
+  .fb-rule-note {
+    margin: 14px 0 0;
+    font-size: 12px;
+    line-height: 1.55;
+    color: #5b6482;
+  }
+  
+  /* ADMIN */
+  .fb-admin h3 {
+    margin: 8px 0 12px;
+  }
+  
+  .fb-upload {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border: 1px dashed #d3d9ea;
+    border-radius: 12px;
+  }
+  
+  .fb-upload span {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .fb-upload small {
+    color: #8b93b0;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+
+  /* Place at src/pages/fantasy-admin.css */
+
+.fa-new-button {
+    margin-bottom: 20px;
+  }
+  
+  /* CREATE FORM */
+  .fa-form {
+    margin-bottom: 24px;
+  }
+  
+  .fa-form h3 {
+    margin: 4px 0 16px;
+  }
+  
+  .fa-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  
+  .fa-form label,
+  .fa-setting {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .fa-form label span,
+  .fa-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8b93b0;
+  }
+  
+  .fa-form input,
+  .fa-inline input {
+    padding: 11px 14px;
+    border: 1px solid #d3d9ea;
+    border-radius: 10px;
+    font: inherit;
+    background: #fff;
+  }
+  
+  .fa-form-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+  }
+  
+  .fa-ghost {
+    padding: 10px 16px;
+    border: 1px solid #d3d9ea;
+    background: #fff;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    color: #5b6482;
+    cursor: pointer;
+  }
+  
+  .fa-ghost:hover:not(:disabled) {
+    border-color: #5b4de0;
+    color: #5b4de0;
+  }
+  
+  /* ADMIN PANEL */
+  .fa-panel h3 {
+    margin: 24px 0 12px;
+  }
+  
+  .fa-panel h3:first-child {
+    margin-top: 4px;
+  }
+  
+  .fa-muted {
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: #8b93b0;
+  }
+  
+  .fa-summary {
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: #5b6482;
+  }
+  
+  /* UPLOAD CARDS */
+  .fa-card {
+    border: 1px solid #e6eaf4;
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+    background: #fff;
+  }
+  
+  .fa-card.disabled {
+    background: #f6f8fc;
+  }
+  
+  .fa-card-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  
+  .fa-step {
+    flex: 0 0 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #5b4de0;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  
+  .fa-card.disabled .fa-step {
+    background: #cfd5ea;
+  }
+  
+  .fa-card-title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .fa-card-title small {
+    color: #8b93b0;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+  
+  .fa-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    color: #5b4de0;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .fa-drop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 14px;
+    padding: 22px;
+    border: 1.5px dashed #d3d9ea;
+    border-radius: 12px;
+    cursor: pointer;
+    color: #5b6482;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  
+  .fa-drop:hover {
+    border-color: #5b4de0;
+    color: #5b4de0;
+  }
+  
+  .fa-drop input {
+    display: none;
+  }
+  
+  .fa-ready {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: #f3f1fe;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+  
+  .fa-ready em {
+    font-style: normal;
+    color: #5b6482;
+  }
+  
+  .fa-ready-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .fa-card .alert-error,
+  .fa-card .alert-success {
+    margin-top: 12px;
+  }
+  
+  .fa-errors {
+    margin: 8px 0 0;
+    padding-left: 18px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  /* SETTINGS */
+  .fa-setting {
+    margin-bottom: 20px;
+  }
+  
+  .fa-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  /* DANGER ZONE */
+  .fa-danger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 28px;
+    padding: 16px 18px;
+    border: 1px solid #f3cfcb;
+    border-radius: 12px;
+    background: #fff7f6;
+  }
+  
+  .fa-danger div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .fa-danger small {
+    color: #8b93b0;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+  
+  .fa-danger button {
+    padding: 9px 16px;
+    border: 1px solid #c0392b;
+    background: #fff;
+    color: #c0392b;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  
+  .fa-danger button:hover:not(:disabled) {
+    background: #c0392b;
+    color: #fff;
+  }
+  
+  @media (max-width: 640px) {
+    .fa-form-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .fa-card-head {
+      flex-wrap: wrap;
+    }
+  }
