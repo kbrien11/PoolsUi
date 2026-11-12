@@ -1,14 +1,20 @@
-
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import AppLayout from "../components/AppLayout";
 import { getBoxes, claimBoxes } from "../api/boxes";
 import { getPoolStatus, getLeaderboard } from "../api/pools";
+// TODO: adjust this import to match how your app exposes the logged-in user
+import { useAuth } from "../context/AuthContext";
 import type { Box, PoolStatus } from "../types";
 
 export default function PoolDetail() {
   const { poolId } = useParams();
   const id = Number(poolId);
+
+  // TODO: adjust to match your auth setup. Needs the current user's id,
+  // which should match `box.user_pk` on claimed boxes.
+  const { user } = useAuth();
+  const myId = user?.id;
 
   const [boxes, setBoxes] = useState<Box[]>([]);
   const [selected, setSelected] = useState<number[]>([]);
@@ -30,7 +36,15 @@ export default function PoolDetail() {
         getLeaderboard(id),
       ]);
 
-      setBoxes(b);
+      // Keep the grid in a stable order regardless of claim status,
+      // so claimed squares stay in their normal spots.
+      const ordered = [...b].sort((x, y) =>
+        String(x.pair).localeCompare(String(y.pair), undefined, {
+          numeric: true,
+        })
+      );
+
+      setBoxes(ordered);
       setStatus(s);
       setLeaders(Array.isArray(l) ? l : []);
     } catch {
@@ -49,7 +63,6 @@ export default function PoolDetail() {
   }, [id]);
 
   // Select or deselect a square.
-  // Selected squares remain in the board.
   const toggle = (box: Box) => {
     if (box.user_pk !== null || claiming) return;
 
@@ -93,12 +106,19 @@ export default function PoolDetail() {
   const money = (v: string | number | undefined) =>
     `$${Number(v || 0).toFixed(2)}`;
 
-  // Get selected boxes for the sidebar only.
+  // Squares currently selected (not yet claimed).
   const selectedBoxes = boxes
     .filter((box) => selected.includes(box.id))
     .sort((a, b) =>
-      String(a.pair).localeCompare(String(b.pair))
+      String(a.pair).localeCompare(String(b.pair), undefined, {
+        numeric: true,
+      })
     );
+
+  // Squares already claimed by the current user.
+  const myClaimedBoxes = boxes.filter(
+    (box) => box.user_pk !== null && box.user_pk === myId
+  );
 
   const selectedValue =
     selected.length * Number(boxes[0]?.balance || 0);
@@ -199,14 +219,11 @@ export default function PoolDetail() {
           ) : (
             <div className="board-scroll">
               <div className="box-grid-modern">
-                {/*
-                  IMPORTANT:
-                  Render every box returned by the API.
-                  Do NOT filter out selected boxes.
-                */}
+                {/* Render every box returned by the API, in order. */}
                 {boxes.map((box) => {
                   const taken = box.user_pk !== null;
                   const active = selected.includes(box.id);
+                  const mine = taken && box.user_pk === myId;
 
                   return (
                     <button
@@ -214,8 +231,8 @@ export default function PoolDetail() {
                       type="button"
                       disabled={taken || claiming}
                       onClick={() => toggle(box)}
-                      className={`square ${
-                        taken ? "taken" : ""
+                      className={`square ${taken ? "taken" : ""} ${
+                        mine ? "mine" : ""
                       } ${active ? "chosen" : ""}`}
                       title={
                         taken
@@ -252,9 +269,7 @@ export default function PoolDetail() {
               {claiming
                 ? "Claiming..."
                 : `Claim ${selected.length || ""} ${
-                    selected.length === 1
-                      ? "square"
-                      : "squares"
+                    selected.length === 1 ? "square" : "squares"
                   } →`}
             </button>
           </div>
@@ -262,57 +277,80 @@ export default function PoolDetail() {
 
         {/* RIGHT SIDEBAR */}
         <aside className="detail-aside">
-
-          {/* SELECTED SQUARES */}
+          {/* YOUR PICKS: pending selections + your claimed squares */}
           <section className="panel aside-panel selected-panel">
             <div className="eyebrow">YOUR PICKS</div>
 
-            <h3>Selected Squares ({selected.length})</h3>
+            <h3>
+              Your Squares ({selected.length + myClaimedBoxes.length})
+            </h3>
 
-            {selected.length === 0 ? (
+            {selected.length === 0 && myClaimedBoxes.length === 0 ? (
               <p className="muted-empty">
                 Select squares on the board to see them here.
               </p>
             ) : (
               <>
-                <div className="selected-summary">
-                  <strong>
-                    {selected.length} selected
-                  </strong>
-
-                  <span>{money(selectedValue)}</span>
-                </div>
-
-                <div className="selected-box-list">
-                  {selectedBoxes.map((box) => (
-                    <div
-                      className="selected-box-item"
-                      key={box.id}
-                    >
-                      <span className="selected-box-number">
-                        {box.pair}
-                      </span>
-
-                      <button
-                        type="button"
-                        onClick={() => toggle(box)}
-                        disabled={claiming}
-                        aria-label={`Remove square ${box.pair}`}
-                      >
-                        ×
-                      </button>
+                {selected.length > 0 && (
+                  <>
+                    <div className="selected-summary">
+                      <strong>{selected.length} selected</strong>
+                      <span>{money(selectedValue)}</span>
                     </div>
-                  ))}
-                </div>
 
-                <button
-                  type="button"
-                  className="clear-selection"
-                  onClick={() => setSelected([])}
-                  disabled={claiming}
-                >
-                  Clear all selections
-                </button>
+                    <div className="selected-box-list">
+                      {selectedBoxes.map((box) => (
+                        <div
+                          className="selected-box-item"
+                          key={box.id}
+                        >
+                          <span className="selected-box-number">
+                            {box.pair}
+                          </span>
+
+                          <button
+                            type="button"
+                            onClick={() => toggle(box)}
+                            disabled={claiming}
+                            aria-label={`Remove square ${box.pair}`}
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+
+                    <button
+                      type="button"
+                      className="clear-selection"
+                      onClick={() => setSelected([])}
+                      disabled={claiming}
+                    >
+                      Clear all selections
+                    </button>
+                  </>
+                )}
+
+                {myClaimedBoxes.length > 0 && (
+                  <>
+                    <div className="selected-summary">
+                      <strong>{myClaimedBoxes.length} claimed</strong>
+                    </div>
+
+                    <div className="selected-box-list">
+                      {myClaimedBoxes.map((box) => (
+                        <div
+                          className="selected-box-item claimed"
+                          key={box.id}
+                        >
+                          <span className="selected-box-number">
+                            {box.pair}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
               </>
             )}
           </section>
@@ -329,9 +367,7 @@ export default function PoolDetail() {
               <strong>
                 {status?.total_boxes
                   ? Math.round(
-                      (status.claimed_boxes /
-                        status.total_boxes) *
-                        100
+                      (status.claimed_boxes / status.total_boxes) * 100
                     )
                   : 0}
                 %
@@ -343,9 +379,7 @@ export default function PoolDetail() {
                 style={{
                   width: `${
                     status?.total_boxes
-                      ? (status.claimed_boxes /
-                          status.total_boxes) *
-                        100
+                      ? (status.claimed_boxes / status.total_boxes) * 100
                       : 0
                   }%`,
                 }}
@@ -354,16 +388,12 @@ export default function PoolDetail() {
 
             <div className="activity-line">
               <span>Available</span>
-              <strong>
-                {status?.remaining_boxes ?? "—"}
-              </strong>
+              <strong>{status?.remaining_boxes ?? "—"}</strong>
             </div>
 
             <div className="activity-line">
               <span>Claimed</span>
-              <strong>
-                {status?.claimed_boxes ?? "—"}
-              </strong>
+              <strong>{status?.claimed_boxes ?? "—"}</strong>
             </div>
           </section>
 
@@ -390,9 +420,7 @@ export default function PoolDetail() {
 
                     <span className="leader-avatar">
                       {String(
-                        entry.first_name ||
-                          entry.username ||
-                          "?"
+                        entry.first_name || entry.username || "?"
                       )
                         .slice(0, 1)
                         .toUpperCase()}
