@@ -48,8 +48,10 @@ export default function PoolDetail() {
     }
   }, [id]);
 
+  // Select or deselect a square.
+  // Selected squares remain in the board.
   const toggle = (box: Box) => {
-    if (box.user_pk !== null) return;
+    if (box.user_pk !== null || claiming) return;
 
     setSelected((current) =>
       current.includes(box.id)
@@ -58,6 +60,7 @@ export default function PoolDetail() {
     );
   };
 
+  // Claim selected squares.
   const claim = async () => {
     if (!selected.length) return;
 
@@ -90,6 +93,7 @@ export default function PoolDetail() {
   const money = (v: string | number | undefined) =>
     `$${Number(v || 0).toFixed(2)}`;
 
+  // Get selected boxes for the sidebar only.
   const selectedBoxes = boxes
     .filter((box) => selected.includes(box.id))
     .sort((a, b) =>
@@ -134,6 +138,7 @@ export default function PoolDetail() {
         </div>
       )}
 
+      {/* POOL STATISTICS */}
       <div className="detail-stats">
         <div className="detail-stat">
           <span>AVAILABLE SQUARES</span>
@@ -163,6 +168,7 @@ export default function PoolDetail() {
       </div>
 
       <div className="detail-layout">
+        {/* MAIN BOARD */}
         <section className="panel board-panel">
           <div className="panel-heading board-heading">
             <div>
@@ -193,6 +199,11 @@ export default function PoolDetail() {
           ) : (
             <div className="board-scroll">
               <div className="box-grid-modern">
+                {/*
+                  IMPORTANT:
+                  Render every box returned by the API.
+                  Do NOT filter out selected boxes.
+                */}
                 {boxes.map((box) => {
                   const taken = box.user_pk !== null;
                   const active = selected.includes(box.id);
@@ -210,7 +221,7 @@ export default function PoolDetail() {
                         taken
                           ? `Claimed by ${box.username}`
                           : active
-                          ? `Remove square ${box.pair}`
+                          ? `Deselect square ${box.pair}`
                           : `Select square ${box.pair}`
                       }
                       aria-pressed={active}
@@ -229,50 +240,46 @@ export default function PoolDetail() {
             </div>
           )}
 
+          {/* CLAIM BUTTON */}
           <div className="claim-bar">
-            <div>
-              <strong>{selected.length} selected</strong>
-
-              <span>
-                {selected.length
-                  ? `Ready to claim ${selected.length} ${
-                      selected.length === 1
-                        ? "square"
-                        : "squares"
-                    }`
-                  : "Choose available squares to get started"}
-              </span>
-            </div>
-
             <button
               className="primary-button"
               onClick={claim}
-              disabled={!selected.length || claiming || loading}
+              disabled={
+                !selected.length || claiming || loading
+              }
             >
               {claiming
                 ? "Claiming..."
                 : `Claim ${selected.length || ""} ${
-                    selected.length === 1 ? "square" : "squares"
+                    selected.length === 1
+                      ? "square"
+                      : "squares"
                   } →`}
             </button>
           </div>
         </section>
 
+        {/* RIGHT SIDEBAR */}
         <aside className="detail-aside">
-          {/* YOUR SELECTED SQUARES */}
+
+          {/* SELECTED SQUARES */}
           <section className="panel aside-panel selected-panel">
             <div className="eyebrow">YOUR PICKS</div>
 
-            <h3>Selected Squares</h3>
+            <h3>Selected Squares ({selected.length})</h3>
 
             {selected.length === 0 ? (
               <p className="muted-empty">
-                Your selected squares will appear here.
+                Select squares on the board to see them here.
               </p>
             ) : (
               <>
                 <div className="selected-summary">
-                  <strong>{selected.length} squares</strong>
+                  <strong>
+                    {selected.length} selected
+                  </strong>
+
                   <span>{money(selectedValue)}</span>
                 </div>
 
