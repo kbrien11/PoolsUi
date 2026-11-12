@@ -8,7 +8,7 @@ import TournamentCreateForm from "../components/TournamentCreateForm";
 import { useAuth } from "../context/AuthContext";
 import { apiError, getTournaments } from "./Fantasy";
 import type { Tournament } from "./Fantasy";
-import "./fantasy.css";
+
 
 const PHASE_LABEL = { open: "Open", locked: "Locked", complete: "Complete" } as const;
 

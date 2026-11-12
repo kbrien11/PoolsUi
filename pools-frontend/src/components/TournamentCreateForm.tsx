@@ -3,8 +3,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { apiError, createTournament } from "../api/client";
 import type { Tournament } from "../pages/Fantasy";
-import "../pages/fantasy.css";
-import "../pages/fantasy-admin.css";
+
 
 // March Madness is in March: from July on, default to next year.
 const defaultYear = () => {

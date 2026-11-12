@@ -10,9 +10,8 @@ import {
   uploadPlayers,
   uploadStats,
 } from "../pages/Fantasy"
-import type { FantasyPlayer, Phase, Tournament, UploadResult } from "../api/fantasy";
-import "../pages/fantasy.css";
-import "../pages/fantasy-admin.css";
+import type { FantasyPlayer, Phase, Tournament, UploadResult } from "../pages/Fantasy"
+
 
 const PLAYER_TEMPLATE = {
   players: [

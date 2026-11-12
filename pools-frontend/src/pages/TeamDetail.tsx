@@ -5,7 +5,7 @@ import AppLayout from "../components/AppLayout";
 import ScoringRules from "./ScoringRules";
 import { apiError, getFantasyTeam } from "./Fantasy";
 import type { FantasyTeam } from "./Fantasy";
-import "./fantasy.css";
+
 
 export default function TeamDetail() {
   const { teamId } = useParams();

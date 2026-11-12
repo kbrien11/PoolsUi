@@ -13,7 +13,7 @@ import {
   updateTeam,
 } from "./Fantasy";
 import type { FantasyPlayer, Tournament } from "./Fantasy";
-import "./fantasy.css";
+
 
 type Tier = "all" | "1" | "2" | "3";
 

@@ -16,7 +16,7 @@ import {
   uploadStats,
 } from "./Fantasy"
 import type { FantasyTeam, LeaderboardRow, Phase, Tournament } from "./Fantasy";
-import "./fantasy.css";
+
 
 type Tab = "teams" | "leaderboard" | "admin";
 
