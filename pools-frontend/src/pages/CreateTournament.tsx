@@ -4,8 +4,7 @@ import AppLayout from "../components/AppLayout";
 import TournamentCreateForm from "../components/TournamentCreateForm";
 // TODO: adjust to match how your app exposes the logged-in user
 import { useAuth } from "../context/AuthContext";
-import "./fantasy.css";
-import "./fantasy-admin.css";
+
 
 export default function CreateTournament() {
   const navigate = useNavigate();
